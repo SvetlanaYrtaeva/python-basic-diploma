@@ -1,0 +1,5 @@
+.env
+*.pyc
+__pycache__/
+movies.db
+.DS_Store
