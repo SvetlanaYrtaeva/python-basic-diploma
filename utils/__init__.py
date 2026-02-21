@@ -1,3 +1,3 @@
-from .validators import validate_name, validate_phone
+from .set_bot_commands import set_default_commands
 
-__all__ = ["validate_name", "validate_phone"]
+__all__ = ["set_default_commands"]

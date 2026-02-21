@@ -1,2 +1,4 @@
-from .main import router
-__all__ = ["router"]
+from .start import router
+
+routers = [router]
+__all__ = ["routers"]

@@ -1,9 +1,4 @@
-from aiogram import Router
-from .default_handlers.main import router as default_router
-from .custom_handlers.contacts import router as contacts_router
+from .default_handlers import routers as default_routers
+from .custom_handlers import routers as custom_routers
 
-main_router = Router()
-main_router.include_router(default_router)
-main_router.include_router(contacts_router)
-
-__all__ = ["main_router"]
+__all__ = ["default_routers", "custom_routers"]

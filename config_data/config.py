@@ -1,12 +1,15 @@
-from pydantic_settings import BaseSettings
-from pathlib import Path
+from pydantic_settings import BaseSettings, SettingsConfigDict
 
-class Settings(BaseSettings):
+class Config(BaseSettings):
     bot_token: str
-    db_path: Path = Path("./contacts.db")
+    omdb_api_key: str = "2c27184b"
+    db_path: str = "./movies.db"
+    tmdb_api_key: str = "5TT5AJ0-GCYM1VH-MR5SJGQ-9WPMJEP"
 
-    class Config:
-        env_file = ".env"
-        extra = "ignore"
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        extra="ignore",
+        case_sensitive=False
+    )
 
-settings = Settings()
+config = Config()

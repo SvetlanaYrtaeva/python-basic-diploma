@@ -1,20 +1,13 @@
-import logging
-from aiogram import Bot, Dispatcher
-from config_data.config import settings
+from aiogram import Dispatcher
 from database import init_db
+from handlers import default_routers, custom_routers
+from utils import set_default_commands
 
-logging.basicConfig(level=logging.INFO)
-
-async def create_dp() -> tuple[Dispatcher, Bot]:
-    bot = Bot(token=settings.bot_token)
-    dp = Dispatcher()
-    return dp, bot
-
-async def on_startup():
+async def on_startup(bot, dp: Dispatcher):
+    print("Инициализация бота...")
     await init_db()
-    logging.info("База данных инициализирована")
+    await set_default_commands(bot)
 
-async def main():
-    dp, bot = await create_dp()
-    await on_startup()
-    await dp.start_polling(bot)
+    for router in default_routers + custom_routers:
+        dp.include_router(router)
+    print("Бот готов к работе!")

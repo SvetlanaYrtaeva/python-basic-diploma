@@ -1,3 +1,3 @@
-from .actions import get_delete_kb, get_search_delete_kb
+from .movies_kb import get_movies_kb
 
-__all__ = ["get_delete_kb", "get_search_delete_kb"]
+__all__ = ["get_movies_kb"]

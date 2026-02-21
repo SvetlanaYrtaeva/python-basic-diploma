@@ -1,19 +1,22 @@
 import asyncio
-import logging
-from handlers import main_router
-from loader import create_dp
-from database import init_db
+from aiogram import Bot, Dispatcher
+from aiogram.client.default import DefaultBotProperties
+from aiogram.enums import ParseMode
+from config_data import config
+from loader import on_startup
 
-logging.basicConfig(level=logging.INFO)
-logging.getLogger('sqlalchemy.engine').setLevel(logging.INFO)
-
-async def main() -> None:
-    dp, bot = await create_dp()
-    await init_db()
-    logging.info("База данных готова!")
-
-    dp.include_router(main_router)
+async def main():
+    bot = Bot(
+        token=config.bot_token,
+        default=DefaultBotProperties(parse_mode=ParseMode.HTML)
+    )
+    dp = Dispatcher()
+    await on_startup(bot, dp)
+    print("Запуск polling...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
-    asyncio.run(main())
+    try:
+        asyncio.run(main())
+    except KeyboardInterrupt:
+        print("\nБот остановлен")
